@@ -1,13 +1,17 @@
-import Description from "./Description";
-import Header from "./Header";
+import "../styles/Banner.css";
+import logo from "../assets/logo.png";
 
-const Banner = () => {
-	return (
-	<>
-      <Header text="Mon titre"/>
-      <Description />
-    </>
-	);
+interface Props {
+  text: string;
 }
 
-export default Banner
+const Banner = ({ text }: Props) => {
+  return (
+    <div className="lmj-banner">
+		<img src={logo} alt='mon image' className="lmj-logo" />
+      <h1 className="lmj-title">{text.toUpperCase()}</h1>
+    </div>
+  );
+};
+
+export default Banner;

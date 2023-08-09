@@ -1,11 +1,13 @@
 
+import "../styles/Cart.css";
+
 interface Props {
 	text: string
 }
 
 const Cart = ({}: Props) => {
 	return (
-		<div>
+		<div className="lmj-cart">
 			<p>Panier</p>
 			<ul>
 				<li>Monstera</li>

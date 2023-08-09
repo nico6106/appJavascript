@@ -1,12 +1,15 @@
-import '../styles/Banner.css'
+import Description from "./Description";
+import Banner from "./Banner";
 
-interface Props {
-	text: string
-}
-const Header = ({text}: Props) => {
+
+const Header = () => {
+	
 	return (
-		<div className="affiche-titre"><h1>{text.toUpperCase()}</h1></div>
-	);
+		<>
+		  <Banner text="Mon site de plantes"/>
+		  <Description />
+		</>
+		);
 }
 
 export default Header
