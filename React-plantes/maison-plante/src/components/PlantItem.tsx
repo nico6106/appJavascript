@@ -17,7 +17,8 @@ interface CartElem {
 interface PropsGen {
 	plant: PlantList,
 	cart: CartElem[],
-	updateCart: any
+	updateCart: any,
+	updateSaveChange: any
 }
 
 function Soldes({plant}: Props) {
@@ -34,17 +35,18 @@ function handleClick(event: any, plant: PlantList) {
 	console.log('clicked ' + plant.name + ', event=')
 }
 
-function PlantItem({plant, cart, updateCart}: PropsGen) {
+function PlantItem({plant, cart, updateCart, updateSaveChange}: PropsGen) {
 
 	function addCart(plant: PlantList) {
 		const plantsExisting = cart.find((elem) => elem.name === plant.name);
 		if (plantsExisting) {
-			const plantsToKeep = cart.find((elem) => elem.name !== plant.name);
+			const plantsToKeep: CartElem[] = cart.filter((elem) => elem.name !== plant.name);
 			updateCart([...plantsToKeep, {name: plant.name, quantity: plantsExisting.quantity + 1, price: plant.price}]);
 		}
 		else { 
 			updateCart([...cart, {name: plant.name, quantity: 1, price: plant.price}]);
-		}	
+		}
+		updateSaveChange(true);	
 	}
 
 	return (

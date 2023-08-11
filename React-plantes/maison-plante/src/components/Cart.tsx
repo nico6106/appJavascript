@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../styles/Cart.css";
 
 interface CartElem {
@@ -13,11 +13,24 @@ interface Props {
   updateCart: any;
 }
 
-const Cart = ({ cart, updateCart }: Props) => {
+function Cart({ cart, updateCart }: Props) {
   const [useCart, updateUseCart] = useState(true);
 
-  function ShowCart() {
-    let total: number = 0;
+  let total: number = 0;
+  cart.forEach((cart) => total = total + cart.quantity * cart.price);
+  console.log('debut cart')
+  
+  useEffect(() => {
+	console.log('use effect')
+	if (total > 0) {
+		document.title = `LMJ: ${total}e d'achats`
+	}
+	else
+		document.title = 'Faites vos achats'
+  }, [total])
+
+
+  function ShowCart() {  
     let sousTot: number = 0;
     return (
       <div>
@@ -27,17 +40,20 @@ const Cart = ({ cart, updateCart }: Props) => {
             <li key={cart.name}>
               {cart.quantity} {cart.name} ={" "}
               {(sousTot = cart.quantity * cart.price)}
-			  {total = total + sousTot}
             </li>
           ))}
         </ul>
-        <p>Total : €</p>
-        <button onClick={() => updateCart([])}>Vider le panier</button>
+        <p>Total : {total}€</p>
+        <button onClick={() => {
+			updateCart([])
+			localStorage.setItem('myTable', JSON.stringify([]))
+		}}>Vider le panier</button>
       </div>
     );
   }
 
   if (useCart) {
+	console.log('useCart')
     return (
       <div className="lmj-cart">
         <button onClick={() => updateUseCart(false)}>Fermer</button>
@@ -51,6 +67,7 @@ const Cart = ({ cart, updateCart }: Props) => {
       </div>
     );
   }
-};
+}
+
 
 export default Cart;
